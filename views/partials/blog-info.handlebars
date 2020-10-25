@@ -1,8 +1,22 @@
-<article class="blog">
-  <div class="title">
-    <span>{{title}} Posted by {{user.username}} on {{format_date created_at}}</span>
+<div class="card w-100 mb-3">
+
+  <div class="card-header bg-dark text-light">
+    <div class="title d-flex justify-content-between align-items-center ">
+      <h2>{{title}} </h2>
+
+          <small> Posted by {{user.username}} on {{format_date created_at}} </small>
+
+    </div>
   </div>
-  <div class="meta">
-    {{content}}
+
+  <div class="card-body bg-light">
+
+
+    <div class="card-text">
+      <div class="meta">
+        {{content}}
+      </div>
+    </div>
+
   </div>
-</article>
+</div>

@@ -1,8 +1,24 @@
+{{#unless loggedIn}}
 <ol class="blog-list">
-    
-  {{#each blogs as |bloges|}}
-  <li>
+  <div class="card-column mb-2">
+    {{#each blogs as |bloges|}}
+
     {{> blog-info bloges }}
-  </li>
-  {{/each}}
+
+    {{/each}}
+  </div>
 </ol>
+{{/unless}}
+
+ {{#if loggedIn}}
+<ol class="blog-list">
+  
+  <div class="card-column mb-2 w-100">
+    {{#each blogs as |bloges|}}
+    {{> loggedblog-info bloges }}
+    {{/each}}
+  </div>
+</ol>
+{{/if}}
+
+<script src="/javascript/blog.js"></script>  

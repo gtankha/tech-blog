@@ -1,7 +1,4 @@
-* {
-    box-sizing: border-box;
-  }
-  
+
   body, html {
     height: 100%;
     padding: 0;
@@ -12,7 +9,8 @@
   
   a {
     text-decoration: none;
-    color: #225ca3;
+    color: lightblue;
+    margin-right: 2em;
     font-weight: bold;
     transition: color .1s;
   }
@@ -22,7 +20,7 @@
   }
   
   button {
-    background-color: #225ca3;
+    background-color:darkblue;
     border: 0;
     padding: 1%;
     color: white;
@@ -53,8 +51,8 @@
   }
   
   textarea {
-    min-width: 40%;
     min-height: 100px;
+    width: 100%;
   }
   
   form > div {
@@ -75,15 +73,18 @@
   }
   
   header {
+    background-color: black;
+    color: white;
     border-bottom: 1px solid #ccc;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0 1%;
+
   }
   
   header h1 {
-    font-size: 1em;
+    font-size: 3em;
   }
   
   main {
@@ -97,11 +98,10 @@
     padding: 0;
     cursor: pointer;
     text-decoration: none;
-    color: #225ca3;
+    color: lightblue;
     font-size: 100%;
     font-weight: bold;
     transition: color .1s;
-    margin-left: 16px;
   }
   
   .btn-no-style:hover {
@@ -133,14 +133,6 @@
     margin: -1.5% 0 2% 0;
   }
   
-  .upvote-btn {
-    background-color: #197d0f;
-    transition: background-color .1s;
-  }
-  
-  .upvote-btn:hover {
-    background-color: #1f9c13;
-  }
   
   .comment-form {
     margin-bottom: 5%;

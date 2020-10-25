@@ -122,7 +122,7 @@ router.delete('/:id', (req, res) => {
 router.post('/login', (req, res) => {
     User.findOne({
         where: {
-            email: req.body.email
+            username: req.body.uname
         }
     }).then(dbUserData => {
         if (!dbUserData) {

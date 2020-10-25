@@ -1,0 +1,33 @@
+<article class="blog">
+  {{> blog-info blogs}}
+</article>
+
+{{#if loggedIn}}
+
+
+{{> comments blogs}}
+
+<div class="card w-100 mb-3">
+  <div class="card-header bg-dark text-light mh-50">
+  </div>
+  <small>Comment</small>
+  <div class="card-body bg-light">
+    <div class="card-text">
+      <form class="comment-form">
+        <div class="blgcomment-form w-100">
+          <textarea name="comment-body"></textarea>
+        </div>
+        <div>
+          <button type="submit">add comment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{{/if}}
+
+{{#if loggedIn}}
+<script src="/javascript/comments.js"></script>
+{{/if}}
