@@ -1,15 +1,3 @@
-{{#unless loggedIn}}
-<ol class="blog-list">
-  <div class="card-column mb-2">
-    {{#each blogs as |bloges|}}
-
-    {{> blog-info bloges }}
-
-    {{/each}}
-  </div>
-</ol>
-{{/unless}}
-
  {{#if loggedIn}}
 <ol class="blog-list">
   
@@ -21,3 +9,6 @@
 </ol>
 {{/if}}
 
+ <button id="addblog">Add Blog</button>
+
+<script src="/javascript/addblog.js"></script>
