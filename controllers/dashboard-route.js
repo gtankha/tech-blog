@@ -48,4 +48,83 @@ router.get('/addblog', (req, res) => {
     res.render('signup');
   });
 
+  router.get('/blog/:id', (req, res) => {
+
+    Blog.findOne({
+      where: {
+        id: req.params.id
+      },
+      attributes: ['id', 'title','content','created_at'],
+      include: [
+          // include the Comment model here:
+          {
+            model: Comment,
+            attributes: ['id', 'comment_text', 'created_at'],
+            include: {
+              model: User,
+              attributes: ['username']
+            }
+          },
+          {
+            model: User,
+            attributes: ['username']
+          }
+        ]
+    })
+
+    .then(dbBlogData => {
+      // pass a single blog object into the homepage template
+     
+     const blogs = dbBlogData.get({ plain: true });
+     console.log(blogs);
+     res.render('blogedit', {
+      blogs,
+      loggedIn: req.session.loggedIn
+    });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+router.get('/editblog/:id', (req, res) => {
+
+    Blog.findOne({
+      where: {
+        id: req.params.id
+      },
+      attributes: ['id', 'title','content','created_at'],
+      include: [
+          // include the Comment model here:
+          {
+            model: Comment,
+            attributes: ['id', 'comment_text', 'created_at'],
+            include: {
+              model: User,
+              attributes: ['username']
+            }
+          },
+          {
+            model: User,
+            attributes: ['username']
+          }
+        ]
+    })
+
+    .then(dbBlogData => {
+      // pass a single blog object into the homepage template
+     
+     const blogs = dbBlogData.get({ plain: true });
+     console.log(blogs);
+     res.render('editblog', {
+      blogs,
+      loggedIn: req.session.loggedIn
+    });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;
