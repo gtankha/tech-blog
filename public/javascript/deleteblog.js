@@ -1,3 +1,5 @@
+// Deletes blog information 
+
 async function deleteBlogHandler() {
 
 

@@ -10,11 +10,13 @@ const helpers = require('./utils/helpers');
 const hbs = exphbs.create({ helpers });
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
+// Session is setup so that it expires after 30 secs of no activity on the page. It's short only for testing purposes.
 const sess = {
   secret: 'Super secret secret',
-  cookie: {},
-  resave: false,
-  saveUninitialized: true,
+  cookie: {maxAge: 30 * 1000},
+  resave: true,
+  rolling: true,
+  saveUninitialized: false,
   store: new SequelizeStore({
     db: sequelize
   })
@@ -24,7 +26,6 @@ app.use(session(sess));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

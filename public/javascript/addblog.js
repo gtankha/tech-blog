@@ -1,6 +1,6 @@
+// this function will redirect to a webpage to add a blog once button is clicked
 
 function addBlogHandler() {
-console.log('I am at add blog handler');
    document.location.replace('/dashboard/addblog');
 }
 

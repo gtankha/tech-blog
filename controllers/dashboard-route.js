@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Blog, User, Comment } = require('../models');
+const { Blog, User, Comment } = require('../models')
+const withAuth = require('../utils/auth');
 
-router.get('/', (req, res) => {
+// Routes for all activities on the dashboard
+
+// get all blogs with user information
+router.get('/', withAuth, (req, res) => {
 
     Blog.findAll({
         where: {
@@ -27,28 +31,31 @@ router.get('/', (req, res) => {
             // pass a single blog object into the homepage template
 
             const blogs = dbBlogData.map(blog => blog.get({ plain: true }));
-            console.log(blogs);
+   
             res.render('dashboard', {
                 blogs,
                 loggedIn: req.session.loggedIn
             });
         })
         .catch(err => {
-            console.log(err);
+           
             res.status(500).json(err);
         });
 });
 
-router.get('/addblog', (req, res) => {
+// Add a blog
+router.get('/addblog',withAuth, (req, res) => {
     if (req.session.loggedIn) {
       res.render('addblog');
       return;
     }
-    console.log("I am not logged in")
+  
     res.render('signup');
   });
 
-  router.get('/blog/:id', (req, res) => {
+  // get a single blog with comment and user information
+
+  router.get('/blog/:id',withAuth, (req, res) => {
 
     Blog.findOne({
       where: {
@@ -76,18 +83,20 @@ router.get('/addblog', (req, res) => {
       // pass a single blog object into the homepage template
      
      const blogs = dbBlogData.get({ plain: true });
-     console.log(blogs);
+   
      res.render('blogedit', {
       blogs,
       loggedIn: req.session.loggedIn
     });
     })
     .catch(err => {
-      console.log(err);
+  
       res.status(500).json(err);
     });
 });
-router.get('/editblog/:id', (req, res) => {
+
+// edit a single blog
+router.get('/editblog/:id',withAuth, (req, res) => {
 
     Blog.findOne({
       where: {
@@ -115,14 +124,14 @@ router.get('/editblog/:id', (req, res) => {
       // pass a single blog object into the homepage template
      
      const blogs = dbBlogData.get({ plain: true });
-     console.log(blogs);
+  
      res.render('editblog', {
       blogs,
       loggedIn: req.session.loggedIn
     });
     })
     .catch(err => {
-      console.log(err);
+
       res.status(500).json(err);
     });
 });

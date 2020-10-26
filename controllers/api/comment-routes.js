@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const { Blog, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
-//const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
 
-// get all users
-// get all users
-router.get('/', (req, res) => {
+
+// get all comments
+router.get('/',withAuth, (req, res) => {
   Comment.findAll({
     order: [['created_at', 'DESC']],
     attributes: ['id', 'comment_text', 'created_at'],
@@ -23,12 +23,12 @@ router.get('/', (req, res) => {
    })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
+ 
       res.status(500).json(err);
     });
 });
-
-router.get('/:id', (req, res) => {
+// get a single comment
+router.get('/:id', withAuth,(req, res) => {
   Comment.findOne({
     where: {
       id: req.params.id
@@ -54,11 +54,12 @@ router.get('/:id', (req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+    
       res.status(500).json(err);
     });
 });
-router.post('/',(req, res) => {
+// post a single comment
+router.post('/',withAuth, (req, res) => {
   // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
   Comment.create({
    comment_text: req.body.comment_text,
@@ -67,12 +68,12 @@ router.post('/',(req, res) => {
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
+   
       res.status(500).json(err);
     });
 });
-
-router.put('/:id',(req, res) => {
+// edit a single comment
+router.put('/:id',withAuth,(req, res) => {
   Comment.update(
     {
         comment_text: req.body.comment_text
@@ -91,11 +92,12 @@ router.put('/:id',(req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+    
       res.status(500).json(err);
     });
 });
-router.delete('/:id',(req, res) => {
+// delete a single comment
+router.delete('/:id',withAuth, (req, res) => {
  Comment.destroy({
     where: {
       id: req.params.id
@@ -109,7 +111,7 @@ router.delete('/:id',(req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+    
       res.status(500).json(err);
     });
 });

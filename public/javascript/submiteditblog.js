@@ -1,3 +1,5 @@
+// Submit the editted blog
+
 async function submitEditBlogHandler() {
 
 

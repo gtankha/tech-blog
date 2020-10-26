@@ -1,3 +1,5 @@
+// Intended to handle the comment forms
+
 async function commentFormHandler(event) {
     event.preventDefault();
   
@@ -7,7 +9,6 @@ async function commentFormHandler(event) {
       window.location.toString().split('/').length - 1
     ];
   
-    console.log(comment_text, blog_id);
     if (comment_text) {
         const response = await fetch('/api/comments', {
           method: 'POST',

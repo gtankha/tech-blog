@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require("../../models");
 
-// GET /api/users
+// get all users
 router.get('/', (req, res) => {
 
 
@@ -10,13 +10,13 @@ router.get('/', (req, res) => {
     })
         .then(dbUserData => res.json(dbUserData))
         .catch(err => {
-            console.log(err);
+            
             res.status(500).json(err);
         });
 
 });
 
-// GET /api/users/1
+// get a single user
 router.get('/:id', (req, res) => {
     User.findOne({
         attributes: { exclude: ['password'] },
@@ -43,13 +43,13 @@ router.get('/:id', (req, res) => {
             res.json(dbUserData);
         })
         .catch(err => {
-            console.log(err);
+        
             res.status(500).json(err);
         });
 
 });
 
-// POST /api/users
+// add a  user
 router.post('/', (req, res) => {
     // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
     User.create({
@@ -65,14 +65,14 @@ router.post('/', (req, res) => {
             });
         })
         .catch(err => {
-            console.log(err);
+       
             res.status(500).json(err);
         });
 
 
 });
 
-// PUT /api/users/1
+// edit a user
 router.put('/:id', (req, res) => {
     // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
 
@@ -91,14 +91,14 @@ router.put('/:id', (req, res) => {
             res.json(dbUserData);
         })
         .catch(err => {
-            console.log(err);
+        
             res.status(500).json(err);
         });
 
 
 });
 
-// DELETE /api/users/1
+// delete a user
 router.delete('/:id', (req, res) => {
 
     User.destroy({
@@ -114,11 +114,12 @@ router.delete('/:id', (req, res) => {
             res.json(dbUserData);
         })
         .catch(err => {
-            console.log(err);
+         
             res.status(500).json(err);
         });
 });
 
+// add a single user
 router.post('/login', (req, res) => {
     User.findOne({
         where: {
@@ -142,11 +143,11 @@ router.post('/login', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
-
             res.json({ user: dbUserData, message: 'You are now logged in!' });
         });
     });
 });
+// logout a user
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
         req.session.destroy(() => {

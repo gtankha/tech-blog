@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const { Blog, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
-//const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth');
 
-// get all users
-// get all users
+
+// get all blogs
 router.get('/', (req, res) => {
   Blog.findAll({
     order: [['created_at', 'DESC']],
@@ -32,11 +32,12 @@ router.get('/', (req, res) => {
    })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
+     
       res.status(500).json(err);
     });
 });
 
+// get a single blog
 router.get('/:id', (req, res) => {
   Blog.findOne({
     where: {
@@ -67,11 +68,13 @@ router.get('/:id', (req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+    
       res.status(500).json(err);
     });
 });
-router.post('/',(req, res) => {
+
+// post a single blog
+router.post('/',withAuth, (req, res) => {
   // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
   Blog.create({
     title: req.body.title,
@@ -80,11 +83,12 @@ router.post('/',(req, res) => {
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
-      console.log(err);
+     
       res.status(500).json(err);
     });
 });
 
+// edit a single blog
 router.put('/:id',(req, res) => {
   Blog.update(
     {
@@ -105,11 +109,13 @@ router.put('/:id',(req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+      
       res.status(500).json(err);
     });
 });
-router.delete('/:id',(req, res) => {
+
+// delete a single blog
+router.delete('/:id',withAuth, (req, res) => {
  Blog.destroy({
     where: {
       id: req.params.id
@@ -123,7 +129,7 @@ router.delete('/:id',(req, res) => {
       res.json(dbPostData);
     })
     .catch(err => {
-      console.log(err);
+ 
       res.status(500).json(err);
     });
 });

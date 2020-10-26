@@ -1,3 +1,5 @@
+// Submits new blog 
+
 async function submitAddBlogHandler() {
    
 
@@ -6,7 +8,7 @@ async function submitAddBlogHandler() {
 
     if (title && content)
 {
-    
+
 
     const response = await fetch('/api/blogs', {
         method: 'POST',
